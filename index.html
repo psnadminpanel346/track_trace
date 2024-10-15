@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Redeem Code</title>
+    
+    <!-- Firebase SDK scripts marked as modules -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js"></script>
+
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f7fb;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #383e5c;
+        }
+
+        .form-group {
+            margin: 20px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #27ce72;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1fa05a;
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .status-container {
+            display: none;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step-label {
+            margin-left: 15px;
+            font-size: 1.2rem;
+        }
+        .dot-filled{
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 2px solid #27ce72 ;
+            position: relative;
+            background-color: #27ce72 ;
+        }
+
+        .dot {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 2px solid #27ce72;
+            position: relative;
+        }
+
+        .dot.green {
+            background-color: #27ce72;
+        }
+
+        .line {
+            position: absolute;
+            width: 2px;
+            background-color: #27ce72;
+            transition: height 0.3s ease;
+        }
+
+        /* Style for the SVG paths */
+        svg {
+            position: absolute;
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
+            top: 0;
+            left: 0;
+            pointer-events: none; /* Prevent interaction with SVG */
+        }
+
+        .path {
+            stroke: rgba(200, 200, 200, 0.2); /* Very light grey */
+            stroke-width: 4;
+            fill: none;
+        }
+
+        .green-path {
+            stroke: #27ce72;
+            stroke-width: 3;
+            fill: none;
+            animation: move 5s linear infinite; /* Slower movement */
+        }
+
+        @keyframes move {
+            0% {
+                stroke-dasharray: 0 1000; /* Start with no visible stroke */
+                stroke-dashoffset: 0;
+            }
+            50% {
+                stroke-dasharray: 1000 0; /* Complete stroke */
+                stroke-dashoffset: -1000; /* Move to the end */
+            }
+            100% {
+                stroke-dasharray: 0 1000; /* Reset the animation */
+                stroke-dashoffset: 0; /* Reset position */
+            }
+        }
+
+        /* Animation for random timing */
+        .green-path:nth-child(1) { animation-delay: 0.2s; }
+        .green-path:nth-child(2) { animation-delay: 0.4s; }
+        .green-path:nth-child(3) { animation-delay: 0.6s; }
+        .green-path:nth-child(4) { animation-delay: 0.8s; }
+        .green-path:nth-child(5) { animation-delay: 1.0s; }
+        .green-path:nth-child(6) { animation-delay: 1.2s; }
+        .green-path:nth-child(7) { animation-delay: 1.4s; }
+        .green-path:nth-child(8) { animation-delay: 1.6s; }
+        .green-path:nth-child(9) { animation-delay: 1.8s; }
+        .green-path:nth-child(10) { animation-delay: 2.0s; }
+        .green-path:nth-child(11) { animation-delay: 2.2s; }
+        .green-path:nth-child(12) { animation-delay: 2.4s; }
+        .green-path:nth-child(13) { animation-delay: 2.6s; }
+        .green-path:nth-child(14) { animation-delay: 2.8s; }
+        .green-path:nth-child(15) { animation-delay: 3.0s; }
+        .green-path:nth-child(16) { animation-delay: 3.2s; }
+        .green-path:nth-child(17) { animation-delay: 3.4s; }
+        .green-path:nth-child(18) { animation-delay: 3.6s; }
+        .green-path:nth-child(19) { animation-delay: 3.8s; }
+        .green-path:nth-child(20) { animation-delay: 4.0s; }
+
+        .tick {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the tick */
+    width: 95%; /* Adjust the width of the tick */
+    height: 95%; /* Adjust the height of the tick */
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Track Your Redeem Code</h1>
+        <div class="form-group">
+            <input type="text" id="redeem-code" placeholder="Enter your redeem code">
+        </div>
+        <button onclick="checkStatus()">Track Your Order</button>
+        <div class="error-message" id="errorMessage" style="display: none;">No record found for the corresponding redeem code kindly check it again.</div>
+
+        <!-- Status Steps -->
+        <div class="status-container" id="completed">
+            
+            <div class="status-step" >
+                <div class="dot-filled">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label">Initiated</div>
+            </div>
+            <div class="status-step" >
+                <div class="dot-filled">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label">Processing</div>
+            </div>
+            <div class="status-step" id="completed">
+                <div class="dot-filled">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label">Completed<br>(Your order has been delivered, check your mailbox, or <a href="https://drive.google.com/file/d/1JjR1KJMTz-elfRpZi5-FSEKDpIQUz2zt/view?usp=sharing">click here</a> to go to the activation guide)</div>
+            </div>
+        </div>
+       
+        <div class="status-container" id="initiated">
+            
+            <div class="status-step" id="initiated">
+                <div class="dot-filled">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label">Initiated<br> (Your Redeem code has been recieved)</div>
+            </div>
+            <div class="status-step" >
+                <div class="dot"></div>
+                <div class="step-label">Processing</div>
+            </div>
+            <div class="status-step">
+                <div class="dot"></div>
+                <div class="step-label">Completed</div>
+            </div>
+        </div>
+        
+        <div class="status-container" id="processing">
+            
+            <div class="status-step" >
+                <div class="dot-filled">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label">Initiated</div>
+            </div>
+            <div class="status-step" id="processing">
+                <div class="dot-filled">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label">Processing<br>(The Supply Team is now creating your account)</div>
+            </div>
+            <div class="status-step">
+                <div class="dot"></div>
+                <div class="step-label">Completed</div>
+            </div>
+        </div>
+    </div>
+
+    <svg>
+         <!-- Paths with random sharp turns covering full width -->
+         <path class="path" d="M0,50 L100,50 L100,800 L300,800 L300,50 L610,50" />
+         <path class="path" d="M0,100 L150,100 L150,750 L400,750 L400,100 L610,100" />
+         <path class="path" d="M0,150 L200,150 L200,700 L450,700 L450,150 L610,150" />
+         <path class="path" d="M0,200 L250,200 L250,650 L500,650 L500,200 L610,200" />
+         <path class="path" d="M0,250 L300,250 L300,600 L550,600 L550,250 L610,250" />
+         <path class="path" d="M0,300 L350,300 L350,550 L600,550 L600,300" />
+         
+         <!-- Additional paths on the right side, extended further right -->
+         <path class="path" d="M610,50 L720,50 L720,800 L920,800 L920,50 L1110,50" />
+         <path class="path" d="M610,100 L760,100 L760,750 L910,750 L910,100 L1110,100" />
+         <path class="path" d="M610,150 L810,150 L810,700 L910,700 L910,150 L1110,150" />
+         <path class="path" d="M610,200 L860,200 L860,650 L910,650 L910,200 L1110,200" />
+         <path class="path" d="M610,250 L910,250 L910,600 L960,600 L960,250 L1110,250" />
+         <path class="path" d="M610,300 L950,300 L950,550 L990,550 L990,300 L1110,300" />
+         
+         <!-- Green moving lines, adjusting for smaller lengths and random paths -->
+         <path class="green-path" d="M0,50 L100,50 L100,400 L200,400" />
+         <path class="green-path" d="M0,100 L150,100 L150,600 L300,600" />
+         <path class="green-path" d="M0,150 L200,150 L200,500 L350,500" />
+         <path class="green-path" d="M0,200 L250,200 L250,450 L400,450" />
+         <path class="green-path" d="M0,250 L300,250 L300,400 L450,400" />
+         <path class="green-path" d="M0,300 L350,300 L350,550 L500,550" />
+         <path class="green-path" d="M610,50 L720,50 L720,400 L800,400" />
+         <path class="green-path" d="M610,100 L760,100 L760,600 L850,600" />
+         <path class="green-path" d="M610,150 L810,150 L810,500 L900,500" />
+         <path class="green-path" d="M610,200 L860,200 L860,450 L950,450" />
+         <path class="green-path" d="M610,250 L910,250 L910,400 L980,400" />
+         <path class="green-path" d="M610,300 L950,300 L950,550 L1020,550" />
+    </svg>
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
