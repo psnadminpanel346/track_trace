@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Your Order</title>
+    <title>Track Your Redeem Code</title>
     
     <!-- Firebase SDK scripts marked as modules -->
     <script type="module" src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"></script>
@@ -194,7 +194,7 @@
 <body>
 
     <div class="container">
-        <h1>Track Your Order</h1>
+        <h1>Track Your Redeem Code</h1>
         <div class="form-group">
             <input type="text" id="redeem-code" placeholder="Enter your redeem code">
         </div>
@@ -210,7 +210,7 @@
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label">Initiated</div>
+                <div class="step-label initiated">Initiated</div>
             </div>
             <div class="status-step" >
                 <div class="dot-filled">
@@ -218,7 +218,7 @@
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label">Processing</div>
+                <div class="step-label processed">Processing</div>
             </div>
             <div class="status-step" id="completed">
                 <div class="dot-filled">
@@ -226,7 +226,7 @@
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label">Completed<br>(Your order has been delivered, check your mailbox, or <a href="https://drive.google.com/file/d/1JjR1KJMTz-elfRpZi5-FSEKDpIQUz2zt/view?usp=sharing">click here</a> to go to the activation guide)</div>
+                <div class="step-label active">Completed<br>(Your order has been delivered, check your mailbox, or <a href="https://drive.google.com/file/d/1JjR1KJMTz-elfRpZi5-FSEKDpIQUz2zt/view?usp=sharing">click here</a> to go to the activation guide)</div>
             </div>
         </div>
        
@@ -238,7 +238,7 @@
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label">Initiated<br> (Your Redeem code has been recieved)</div>
+                <div class="step-label active">Initiated</div>
             </div>
             <div class="status-step" >
                 <div class="dot"></div>
@@ -258,15 +258,15 @@
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label">Initiated</div>
+                <div class="step-label initiated">Initiated</div>
             </div>
-            <div class="status-step" id="processing">
+            <div class="status-step " id="processing">
                 <div class="dot-filled">
                     <svg class="tick" viewBox="0 0 24 24">
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label">Processing<br>(The Supply Team is now creating your account)</div>
+                <div class="step-label active">Processing<br>(The Supply Team is now creating your account)</div>
             </div>
             <div class="status-step">
                 <div class="dot"></div>
