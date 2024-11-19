@@ -26,6 +26,7 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+            
         }
 
         .container {
@@ -36,6 +37,7 @@
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 1;
+            
         }
 
         h1 {
@@ -124,8 +126,8 @@
         /* Style for the SVG paths */
         svg {
             position: absolute;
-            width: 100vw; /* Full viewport width */
-            height: 100vh; /* Full viewport height */
+            width: 100%; /* Full viewport width */
+            height: 100%; /* Full viewport height */
             top: 0;
             left: 0;
             pointer-events: none; /* Prevent interaction with SVG */
@@ -277,20 +279,28 @@
 
     <svg>
          <!-- Paths with random sharp turns covering full width -->
-         <path class="path" d="M0,50 L100,50 L100,800 L300,800 L300,50 L610,50" />
-         <path class="path" d="M0,100 L150,100 L150,750 L400,750 L400,100 L610,100" />
-         <path class="path" d="M0,150 L200,150 L200,700 L450,700 L450,150 L610,150" />
-         <path class="path" d="M0,200 L250,200 L250,650 L500,650 L500,200 L610,200" />
-         <path class="path" d="M0,250 L300,250 L300,600 L550,600 L550,250 L610,250" />
-         <path class="path" d="M0,300 L350,300 L350,550 L600,550 L600,300" />
+         <path class="green-path" d="M0,50 L100,50 L100,800 L300,800 L300,50 L610,50" />
+         <path class="green-path" d="M0,100 L150,100 L150,750 L400,750 L400,100 L610,100" />
+         <path class="green-path" d="M0,150 L200,150 L200,700 L450,700 L450,150 L610,150" />
+         <path class="green-path" d="M0,200 L250,200 L250,650 L500,650 L500,200 L610,200" />
+         <path class="green-path" d="M0,250 L300,250 L300,600 L550,600 L550,250 L610,250" />
+         <path class="green-path" d="M0,300 L350,300 L350,550 L600,550 L600,300" />
          
          <!-- Additional paths on the right side, extended further right -->
-         <path class="path" d="M610,50 L720,50 L720,800 L920,800 L920,50 L1110,50" />
-         <path class="path" d="M610,100 L760,100 L760,750 L910,750 L910,100 L1110,100" />
-         <path class="path" d="M610,150 L810,150 L810,700 L910,700 L910,150 L1110,150" />
-         <path class="path" d="M610,200 L860,200 L860,650 L910,650 L910,200 L1110,200" />
-         <path class="path" d="M610,250 L910,250 L910,600 L960,600 L960,250 L1110,250" />
-         <path class="path" d="M610,300 L950,300 L950,550 L990,550 L990,300 L1110,300" />
+         <path class="green-path" d="M610,50 L720,50 L720,500 L920,300 L920,50 L1110,50" />
+         <path class="green-path" d="M610,100 L760,100 L760,750 L910,750 L910,100 L1110,100" />
+         <path class="green-path" d="M610,150 L810,150 L810,700 L910,700 L910,150 L1110,150" />
+         <path class="green-path" d="M610,200 L860,200 L860,650 L910,650 L910,200 L1110,200" />
+         <path class="green-path" d="M610,250 L910,250 L910,600 L960,600 L960,250 L1110,250" />
+         <path class="green-path" d="M610,300 L950,300 L950,550 L990,550 L990,300 L1110,300" />
+
+         <path class="green-path" d="M1110,50 L1210,50 L1210,500 L1410,500 L1410,150 L1510,150" />
+         <path class="green-path" d="M1110,100 L1260,100 L1260,600 L1110,600 L1110,200 L1610,200" />
+         <path class="green-path" d="M1110,150 L1320,150 L1320,400 L1210,400 L1210,50 L1710,50" />
+         <path class="green-path" d="M1110,200 L1360,200 L1360,650 L1310,650 L1310,130 L1710,130" />
+         <path class="green-path" d="M1110,250 L1380,250 L1380,700 L1510,700 L1510,170 L1710,170" />
+         <path class="green-path" d="M1010,650 L1280,650 L1280,400 L1610,400 L1610,670 L1710,670" />
+         <path class="green-path" d="M1010,600 L1480,600 L1480,400 L1640,400 L1640,670 L1730,670" />
          
          <!-- Green moving lines, adjusting for smaller lengths and random paths -->
          <path class="green-path" d="M0,50 L100,50 L100,400 L200,400" />
