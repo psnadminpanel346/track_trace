@@ -140,48 +140,31 @@
         }
 
         .green-path {
-            stroke: #27ce72;
-            stroke-width: 3;
-            fill: none;
-            animation: move 5s linear infinite; /* Slower movement */
-        }
+    stroke: #27ce72;
+    stroke-width: 10;
+    fill: none;
+    stroke-dasharray: 100;  /* Length of the dash */
+    stroke-dashoffset: 500; /* Start with the path hidden */
+    animation: move 10s linear infinite; /* Animate path with one dash */
+    animation-fill-mode: forwards; /* Keeps path in its final state after animation */
+}
 
-        @keyframes move {
-            0% {
-                stroke-dasharray: 0 1000; /* Start with no visible stroke */
-                stroke-dashoffset: 0;
-            }
-            50% {
-                stroke-dasharray: 1000 0; /* Complete stroke */
-                stroke-dashoffset: -1000; /* Move to the end */
-            }
-            100% {
-                stroke-dasharray: 0 1000; /* Reset the animation */
-                stroke-dashoffset: 0; /* Reset position */
-            }
-        }
+@keyframes move {
+    0% {
+        stroke-dashoffset: 500; /* Start with path hidden */
+    }
+    50% {
+        stroke-dashoffset: 0; /* Path is fully drawn */
+    }
+    100% {
+        stroke-dashoffset: 500; /* Reset path to hidden */
+    }
+}
 
-        /* Animation for random timing */
-        .green-path:nth-child(1) { animation-delay: 0.2s; }
-        .green-path:nth-child(2) { animation-delay: 0.4s; }
-        .green-path:nth-child(3) { animation-delay: 0.6s; }
-        .green-path:nth-child(4) { animation-delay: 0.8s; }
-        .green-path:nth-child(5) { animation-delay: 1.0s; }
-        .green-path:nth-child(6) { animation-delay: 1.2s; }
-        .green-path:nth-child(7) { animation-delay: 1.4s; }
-        .green-path:nth-child(8) { animation-delay: 1.6s; }
-        .green-path:nth-child(9) { animation-delay: 1.8s; }
-        .green-path:nth-child(10) { animation-delay: 2.0s; }
-        .green-path:nth-child(11) { animation-delay: 2.2s; }
-        .green-path:nth-child(12) { animation-delay: 2.4s; }
-        .green-path:nth-child(13) { animation-delay: 2.6s; }
-        .green-path:nth-child(14) { animation-delay: 2.8s; }
-        .green-path:nth-child(15) { animation-delay: 3.0s; }
-        .green-path:nth-child(16) { animation-delay: 3.2s; }
-        .green-path:nth-child(17) { animation-delay: 3.4s; }
-        .green-path:nth-child(18) { animation-delay: 3.6s; }
-        .green-path:nth-child(19) { animation-delay: 3.8s; }
-        .green-path:nth-child(20) { animation-delay: 4.0s; }
+.green-path:nth-child(1) {
+    animation-delay: 0s;
+}
+
 
         .tick {
     position: absolute;
@@ -234,88 +217,43 @@
        
         <div class="status-container" id="initiated">
             
-            <div class="status-step" id="initiated">
-                <div class="dot-filled">
-                    <svg class="tick" viewBox="0 0 24 24">
-                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <div class="step-label active">Initiated</div>
-            </div>
-            <div class="status-step" >
-                <div class="dot"></div>
-                <div class="step-label">Processing</div>
-            </div>
             <div class="status-step">
-                <div class="dot"></div>
-                <div class="step-label">Completed</div>
-            </div>
-        </div>
-        
-        <div class="status-container" id="processing">
-            
-            <div class="status-step" >
-                <div class="dot-filled">
+                <div class="dot">
                     <svg class="tick" viewBox="0 0 24 24">
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
                 <div class="step-label initiated">Initiated</div>
             </div>
-            <div class="status-step " id="processing">
-                <div class="dot-filled">
+            <div class="status-step">
+                <div class="dot">
                     <svg class="tick" viewBox="0 0 24 24">
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label active">Processing<br>(The Supply Team is now creating your account)</div>
+                <div class="step-label processed">Processing</div>
             </div>
             <div class="status-step">
-                <div class="dot"></div>
-                <div class="step-label">Completed</div>
+                <div class="dot">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label active">Completed<br>(Your order has been delivered, check your mailbox, or <a href="https://drive.google.com/file/d/1JjR1KJMTz-elfRpZi5-FSEKDpIQUz2zt/view?usp=sharing">click here</a> to go to the activation guide)</div>
             </div>
         </div>
+
     </div>
 
     <svg>
-         <!-- Paths with random sharp turns covering full width -->
-         <path class="green-path" d="M0,50 L100,50 L100,800 L300,800 L300,50 L610,50" />
-         <path class="green-path" d="M0,100 L150,100 L150,750 L400,750 L400,100 L610,100" />
-         <path class="green-path" d="M0,150 L200,150 L200,700 L450,700 L450,150 L610,150" />
-         <path class="green-path" d="M0,200 L250,200 L250,650 L500,650 L500,200 L610,200" />
-         <path class="green-path" d="M0,250 L300,250 L300,600 L550,600 L550,250 L610,250" />
-         <path class="green-path" d="M0,300 L350,300 L350,550 L600,550 L600,300" />
-         
-         <!-- Additional paths on the right side, extended further right -->
-         <path class="green-path" d="M610,50 L720,50 L720,500 L920,300 L920,50 L1110,50" />
-         <path class="green-path" d="M610,100 L760,100 L760,750 L910,750 L910,100 L1110,100" />
-         <path class="green-path" d="M610,150 L810,150 L810,700 L910,700 L910,150 L1110,150" />
-         <path class="green-path" d="M610,200 L860,200 L860,650 L910,650 L910,200 L1110,200" />
-         <path class="green-path" d="M610,250 L910,250 L910,600 L960,600 L960,250 L1110,250" />
-         <path class="green-path" d="M610,300 L950,300 L950,550 L990,550 L990,300 L1110,300" />
-
-         <path class="green-path" d="M1110,50 L1210,50 L1210,500 L1410,500 L1410,150 L1510,150" />
-         <path class="green-path" d="M1110,100 L1260,100 L1260,600 L1110,600 L1110,200 L1610,200" />
-         <path class="green-path" d="M1110,150 L1320,150 L1320,400 L1210,400 L1210,50 L1710,50" />
-         <path class="green-path" d="M1110,200 L1360,200 L1360,650 L1310,650 L1310,130 L1710,130" />
-         <path class="green-path" d="M1110,250 L1380,250 L1380,700 L1510,700 L1510,170 L1710,170" />
-         <path class="green-path" d="M1010,650 L1280,650 L1280,400 L1610,400 L1610,670 L1710,670" />
-         <path class="green-path" d="M1010,600 L1480,600 L1480,400 L1640,400 L1640,670 L1730,670" />
-         
-         <!-- Green moving lines, adjusting for smaller lengths and random paths -->
-         <path class="green-path" d="M0,50 L100,50 L100,400 L200,400" />
-         <path class="green-path" d="M0,100 L150,100 L150,600 L300,600" />
-         <path class="green-path" d="M0,150 L200,150 L200,500 L350,500" />
-         <path class="green-path" d="M0,200 L250,200 L250,450 L400,450" />
-         <path class="green-path" d="M0,250 L300,250 L300,400 L450,400" />
-         <path class="green-path" d="M0,300 L350,300 L350,550 L500,550" />
-         <path class="green-path" d="M610,50 L720,50 L720,400 L800,400" />
-         <path class="green-path" d="M610,100 L760,100 L760,600 L850,600" />
-         <path class="green-path" d="M610,150 L810,150 L810,500 L900,500" />
-         <path class="green-path" d="M610,200 L860,200 L860,450 L950,450" />
-         <path class="green-path" d="M610,250 L910,250 L910,400 L980,400" />
-         <path class="green-path" d="M610,300 L950,300 L950,550 L1020,550" />
+        <!-- Single smooth curved path -->
+        <path class="green-path" d="M500,0 C100,300 400,300 700,900" />
+        <path class="green-path" d="M0,0 C100,300 400,300 200,900" />
+        <path class="green-path" d="M700,0 C900,300 700,300 800,900" />
+        <path class="green-path" d="M1100,0 C1000,300 900,300 1100,900" />
+        <path class="green-path" d="M1200,0 C1400,300 1400,300 1100,900" />
     </svg>
+    
 
     <script type="module" src="./script.js"></script>
 </body>
