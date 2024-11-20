@@ -217,34 +217,48 @@
        
         <div class="status-container" id="initiated">
             
+            <div class="status-step" id="initiated">
+                <div class="dot-filled">
+                    <svg class="tick" viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="step-label active">Initiated</div>
+            </div>
+            <div class="status-step" >
+                <div class="dot"></div>
+                <div class="step-label">Processing</div>
+            </div>
             <div class="status-step">
-                <div class="dot">
+                <div class="dot"></div>
+                <div class="step-label">Completed</div>
+            </div>
+        </div>
+        
+        <div class="status-container" id="processing">
+            
+            <div class="status-step" >
+                <div class="dot-filled">
                     <svg class="tick" viewBox="0 0 24 24">
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
                 <div class="step-label initiated">Initiated</div>
             </div>
-            <div class="status-step">
-                <div class="dot">
+            <div class="status-step " id="processing">
+                <div class="dot-filled">
                     <svg class="tick" viewBox="0 0 24 24">
                         <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
-                <div class="step-label processed">Processing</div>
+                <div class="step-label active">Processing<br>(The Supply Team is now creating your account)</div>
             </div>
             <div class="status-step">
-                <div class="dot">
-                    <svg class="tick" viewBox="0 0 24 24">
-                        <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <div class="step-label active">Completed<br>(Your order has been delivered, check your mailbox, or <a href="https://drive.google.com/file/d/1JjR1KJMTz-elfRpZi5-FSEKDpIQUz2zt/view?usp=sharing">click here</a> to go to the activation guide)</div>
+                <div class="dot"></div>
+                <div class="step-label">Completed</div>
             </div>
         </div>
-
     </div>
-
     <svg>
         <!-- Single smooth curved path -->
         <path class="green-path" d="M500,0 C100,300 400,300 700,900" />
