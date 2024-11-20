@@ -69,15 +69,15 @@ function checkStatus() {
                 document.querySelector('#processing .initiated').innerHTML = `Initiated<br> (Your redeem code has been recieved at ${initiatedDate})`;
                 document.getElementById('processing').style.display = 'block';
                 // Update the content within the processing div
-                document.querySelector('#processing .active').innerHTML = `Processing<br>(The Supply Team is creating your account at ${processeddate})`;
+                document.querySelector('#processing .active').innerHTML = `Processing<br>(The Supply Team has created your account at ${processeddate})`;
             } else if (status === 3) {
                 
                 document.querySelector('#completed .initiated').innerHTML = `Initiated<br> (Your redeem code has been recieved at ${initiatedDate})`;
                 // Update the content within the processing div
-                document.querySelector('#completed .processed').innerHTML = `Processing<br>(The Supply Team is creating your account at ${processeddate})`;
+                document.querySelector('#completed .processed').innerHTML = `Processing<br>(The Supply Team has created your account at ${processeddate})`;
                 document.getElementById('completed').style.display = 'block';
                 // Update the content within the completed div
-                document.querySelector('#completed .active').innerHTML = `Completed<br>(Your order has been delivered at ${completeddate} check your mailbox, or <a href="https://drive.google.com/file/d/1JjR1KJMTz-elfRpZi5-FSEKDpIQUz2zt/view?usp=sharing">click here</a> to go to the activation guide.)`;
+                document.querySelector('#completed .active').innerHTML = `Completed<br>(Your order has been delivered at ${completeddate} check your mailbox, or <a href="https://drive.google.com/file/d/1WLDSfj7wvjiepZgSfyX7PomEpH8Ppcst/view?usp=sharing">click here</a> to go to the activation guide.)`;
             } else {
                 alert("Unknown status value.");
             }
